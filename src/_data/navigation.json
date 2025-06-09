@@ -1,0 +1,9 @@
+{
+  "links": [
+    { "name": "Home", "url": "/", "id": "home" },
+    { "name": "About", "url": "/about/", "id": "about" },
+    { "name": "Work", "url": "/work/", "id": "work" },
+    { "name": "Interests", "url": "/interests/", "id": "interests" },
+    { "name": "Connect", "url": "/connect/", "id": "connect" }
+  ]
+}

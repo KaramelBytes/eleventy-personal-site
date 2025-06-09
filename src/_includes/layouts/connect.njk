@@ -1,0 +1,85 @@
+---
+layout: base.njk
+title: Connect
+---
+
+{% set hero_title = "Get in Touch" %}
+{% set hero_subtitle = "I'd love to hear from you! Reach out through any of the following." %}
+{% block hero %}
+  {% include "partials/hero.njk" %}
+{% endblock %}
+
+{% block content %}
+<section id="connect-wrapper" class="relative z-10 bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 px-8">
+  <!-- Connect Section -->
+  <div class="relative z-20 py-16 text-center max-w-4xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white">Let's Connect</h2>
+    <p class="mt-6 text-lg md:text-xl text-gray-300">{{ content | safe }}</p>
+  </div>
+
+  <!-- Contact Methods -->
+  <div class="relative z-20 py-8 text-center max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
+      <!-- Email Card -->
+      {% if site.contact.email %}
+      <div class="bg-gray-800 rounded-lg p-6 shadow-lg flex items-center space-x-4 hover:bg-gray-700 transition duration-300 ease-in-out w-full md:w-auto">
+        <div class="flex-shrink-0">
+          <i class="fas fa-envelope text-3xl text-pink-400"></i>
+        </div>
+        <div class="text-left">
+          <h3 class="text-xl font-bold text-white hover:text-pink-400 transition duration-300 ease-in-out">Email Me</h3>
+          {% if site.base64Obfuscation.enabled and site.base64Obfuscation.emailField == "contact.email" %}
+            <p id="contact-email" data-email="{{ site.contact.email | base64 }}" class="obfuscated-value text-gray-300 hover:text-pink-400 transition duration-300 ease-in-out cursor-pointer"></p>
+          {% else %}
+            <a href="mailto:{{ site.contact.email }}" class="text-gray-300 hover:text-pink-400 transition duration-300 ease-in-out">{{ site.contact.email }}</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Phone Card (Optional) -->
+      {% if site.contact.phone %}
+      <div class="bg-gray-800 rounded-lg p-6 shadow-lg flex items-center space-x-4 hover:bg-gray-700 transition duration-300 ease-in-out w-full md:w-auto">
+        <div class="flex-shrink-0">
+          <i class="fas fa-phone text-3xl text-pink-400"></i>
+        </div>
+        <div class="text-left">
+          <h3 class="text-xl font-bold text-white hover:text-pink-400 transition duration-300 ease-in-out">Call Me</h3>
+          {% if site.base64Obfuscation.enabled and site.base64Obfuscation.phoneField == "contact.phone" %}
+            <p id="contact-phone" data-phone="{{ site.contact.phone | base64 }}" class="obfuscated-value text-gray-300 hover:text-pink-400 transition duration-300 ease-in-out cursor-pointer"></p>
+          {% else %}
+            <a href="tel:{{ site.contact.phone }}" class="text-gray-300 hover:text-pink-400 transition duration-300 ease-in-out">{{ site.contact.phone }}</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Social Media Links -->
+  {% set social_platforms = {
+    github: "fab fa-github",
+    twitter: "fab fa-twitter",
+    linkedin: "fab fa-linkedin-in",
+    instagram: "fab fa-instagram",
+    facebook: "fab fa-facebook-f"
+  } %}
+  {% if site.social and (site.social.github or site.social.twitter or site.social.linkedin or site.social.instagram or site.social.facebook) %}
+  <div class="relative z-20 py-8 text-center">
+    <h3 class="text-xl font-bold text-white mb-4">Follow Me</h3>
+    <div class="flex justify-center space-x-6">
+      {% for platform, username in site.social %}
+        {% if username and social_platforms[platform] %}
+          <a href="https://{{ platform }}.com/{{ username if platform != 'linkedin' else 'in/' + username }}" 
+             target="_blank" rel="noopener noreferrer"
+             class="hover:underline hover:text-pink-400 transition duration-300 ease-in-out text-2xl" 
+             aria-label="{{ platform | capitalize }}">
+            <i class="{{ social_platforms[platform] }}"></i>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

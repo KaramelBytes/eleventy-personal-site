@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "name": "eleventy-tailwind-retrowave-template",
+  "version": "1.0.0",
+  "description": "A personal website SSG template using Eleventy and Tailwind CSS with a retrowave theme.",
+  "main": "index.js",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  },
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./src/assets/css/tailwind.css -o ./src/assets/css/style.css --minify",
+    "build": "npm run build:css && eleventy",
+    "start": "eleventy --serve"
+  },
+  "keywords": ["eleventy", "tailwind", "ssg", "template", "personal-website", "retrowave"],
+  "author": "Your Name or Organization Here",
+  "license": "MIT"
+}

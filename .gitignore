@@ -1,0 +1,22 @@
+# Node.js
+/node_modules/
+
+# Eleventy output directory
+/_site/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files (for sensitive information)
+.env
+
+# IDE or Editor specific files (e.g., VSCode, JetBrains)
+.vscode/
+.idea/
+*.swp

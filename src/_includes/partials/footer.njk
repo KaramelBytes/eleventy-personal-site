@@ -1,0 +1,50 @@
+<footer class="bg-gray-900 text-gray-300 py-4 px-6">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Copyright Information -->
+    <p class="text-sm">
+      &copy; {% currentYear %} {{ site.author.name | default("Your Name Here") }}
+    </p>
+
+    <!-- Social Media Links -->
+    {% if site.social %}
+    <div class="flex space-x-4">
+      {% if site.social.facebook %}
+      <a href="https://facebook.com/{{ site.social.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      {% endif %}
+      {% if site.social.instagram %}
+      <a href="https://instagram.com/{{ site.social.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-instagram"></i>
+      </a>
+      {% endif %}
+      {% if site.social.linkedin %}
+      <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      {% endif %}
+      {% if site.social.twitter %}
+      <a href="https://twitter.com/{{ site.social.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-twitter"></i>
+      </a>
+      {% endif %}
+      {% if site.social.github %}
+      <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-github"></i>
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<div id="scrollToTop" class="hidden fixed bottom-20 right-5 z-50">
+  <button
+    onclick="window.scrollTo({top: 0, behavior: 'smooth'});"
+    class="bg-pink-400 text-white px-4 py-2 rounded-full shadow-md hover:bg-pink-500 transition duration-300 ease-in-out"
+    aria-label="Scroll to top"
+  >
+    ↑ Top
+  </button>
+</div>

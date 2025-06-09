@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default(site.title) }}</title>
+    <meta name="description" content="{{ description | default(site.description) }}">
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ title | default(site.title) }}">
+    <meta property="og:description" content="{{ description | default(site.description) }}">
+    <meta property="og:image" content="{{ site.ogImage | url }}"> 
+    <meta property="og:url" content="{{ site.url }}{{ page.url | url }}">
+    <meta property="og:type" content="website">
+
+    <!-- Person Schema -->
+    {# Only include Person schema if enabled and relevant fields are present in site.json #}
+    {% if page.url == "/" and site.author.name %}
+    <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.author.name }}",
+  {# Optional: Add alternateName if available in site.json #}
+  {# "alternateName": "{{ site.author.alternateName }}", #}
+  "description": "{{ site.author.bio }}",
+  "url": "{{ site.url }}",
+  "image": "{{ site.url }}{{ site.author.profileImage | url }}",
+  "sameAs": [
+    {% if site.social.instagram %}"https://instagram.com/{{ site.social.instagram }}"{% if site.social.twitter or site.social.github or site.social.linkedin %},{% endif %}{% endif %}
+    {% if site.social.twitter %}"https://twitter.com/{{ site.social.twitter }}"{% if site.social.github or site.social.linkedin %},{% endif %}{% endif %}
+    {% if site.social.github %}"https://github.com/{{ site.social.github }}"{% if site.social.linkedin %},{% endif %}{% endif %}
+    {% if site.social.linkedin %}"https://linkedin.com/in/{{ site.social.linkedin }}"{% endif %}
+  ],
+  {# These fields are highly personal. Fill them in site.json or remove these lines if not applicable. #}
+  {% if site.author.birthDate %}"birthDate": "{{ site.author.birthDate }}",{% endif %}
+  {% if site.author.gender %}"gender": "{{ site.author.gender }}",{% endif %}
+  {% if site.author.nationality %}"nationality": "{{ site.author.nationality }}",{% endif %}
+  {% if site.author.knowsAbout and site.author.knowsAbout.length > 0 %}
+  "knowsAbout": [
+    {% for item in site.author.knowsAbout %}
+      "{{ item }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ],
+  {% endif %}
+  {% if site.author.knowsLanguage and site.author.knowsLanguage.length > 0 %}
+  "knowsLanguage": [
+    {% for lang in site.author.knowsLanguage %}
+      "{{ lang }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+  {% endif %}
+  "dummy": "ensure_trailing_comma_is_handled_if_all_optionals_are_empty" {# This is a trick to avoid JSON syntax errors if all optional fields above are empty #}
+}
+    </script>
+    <script>
+      // Clean up dummy field from JSON-LD
+      document.addEventListener('DOMContentLoaded', () => {
+        const personSchemaScript = document.querySelector('script[type="application/ld+json"]');
+        if (personSchemaScript) {
+          try {
+            const jsonData = JSON.parse(personSchemaScript.textContent);
+            if (jsonData["@type"] === "Person" && jsonData.hasOwnProperty("dummy")) {
+              delete jsonData.dummy;
+              // Remove trailing comma if last element was an optional one that is now removed
+              let cleanedJson = JSON.stringify(jsonData);
+              cleanedJson = cleanedJson.replace(/,}/g, '}').replace(/,]/g, ']');
+              personSchemaScript.textContent = cleanedJson;
+            }
+          } catch (e) {
+            console.error("Error processing Person schema JSON-LD: ", e);
+          }
+        }
+      });
+    </script>
+    {% endif %}
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "{{ site.url }}"
+        }
+        {% if page.url != "/" %},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ title | escape }}",
+          "item": "{{ site.url }}{{ page.url | url }}"
+        }
+        {% endif %}
+      ]
+    }
+    </script>
+
+    <!-- WebPage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "{{ title | default(site.title) }}",
+      "description": "{{ description | default(site.description) }}",
+      "url": "{{ site.url }}{{ page.url | url }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.author.name }}"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include "partials/header.njk" %}
+    {% include "partials/navigation.njk" %}
+    {% block hero %}{% endblock %}
+    <main>
+        {{ content | safe }}
+    </main>
+    {% include "partials/footer.njk" %}
+    <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

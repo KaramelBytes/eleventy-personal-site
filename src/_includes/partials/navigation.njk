@@ -1,0 +1,14 @@
+<nav class="bg-gray-800 text-white py-2 px-6">
+  <div class="container mx-auto flex justify-center space-x-4">
+    <ul class="flex space-x-4">
+      {% for link in navigation.links %}
+        <li>
+          <a href="{{ link.url }}" 
+             class="hover:underline hover:text-pink-400 transition duration-300 ease-in-out {% if currentPage == link.id %}text-pink-400 font-bold{% endif %}">
+            {{ link.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>

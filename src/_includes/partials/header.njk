@@ -1,0 +1,51 @@
+<header class="w-full bg-gray-900 text-white py-2 px-6 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Initials Icon (Top Left) -->
+    {% if site.author.name %}
+      {% set nameParts = site.author.name.split(' ') %}
+      {% set initials = nameParts[0][0] if nameParts[0] %}
+      {% if nameParts | length > 1 %}
+        {% set initials = initials + nameParts[nameParts | length - 1][0] if nameParts[nameParts | length - 1] %}
+      {% endif %}
+    <a href="{{ '/' | url }}" aria-label="Homepage" class="h-8 w-8 hover:scale-105 transition-transform duration-300 bg-transparent">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="h-full w-full text-pink-400" aria-hidden="true" style="filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));">
+        <!-- Circle Outline -->
+        <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" fill="none" />
+        <!-- Initials -->
+        <text x="50%" y="50%" text-anchor="middle" fill="currentColor" font-size="36" dy=".35em" font-family="Arial, sans-serif">
+          {{ initials | upper }}
+        </text>
+      </svg>
+    </a>
+    {% endif %}
+
+    <!-- Social Media Links (Top Right) -->
+    <div class="flex space-x-4">
+      {% if site.social.facebook %}
+      <a href="https://facebook.com/{{ site.social.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      {% endif %}
+      {% if site.social.instagram %}
+      <a href="https://instagram.com/{{ site.social.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-instagram"></i>
+      </a>
+      {% endif %}
+      {% if site.social.linkedin %}
+      <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      {% endif %}
+      {% if site.social.twitter %}
+      <a href="https://twitter.com/{{ site.social.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-twitter"></i>
+      </a>
+      {% endif %}
+      {% if site.social.github %}
+      <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:text-pink-400 transition duration-300 ease-in-out">
+        <i class="fab fa-github"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</header>
